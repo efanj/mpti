@@ -14,15 +14,14 @@
 <script src="<?= PUBLIC_ROOT ?>js/libs/jquery-2.1.1.min.js"></script>
 <script src="<?= PUBLIC_ROOT ?>js/libs/jquery-ui-1.10.4.min.js"></script>
 <!-- Bootstrap plugins -->
-<script src="<?= PUBLIC_ROOT ?>js/bootstrap/bootstrap.js"></script>
+<script src="<?= PUBLIC_ROOT ?>js/bootstrap/bootstrap.min.js"></script>
 <!-- Core plugins ( not remove ) -->
 <script src="<?= PUBLIC_ROOT ?>js/libs/modernizr.custom.js"></script>
 <!-- Remove click delay in touch -->
 <!-- Handle responsive view functions -->
 <script src="<?= PUBLIC_ROOT ?>js/jRespond.min.js"></script>
 <!-- Datatables -->
-<script src="<?= PUBLIC_ROOT ?>plugins/tables/datatables/jquery.dataTables.min.js"></script>
-<script src="<?= PUBLIC_ROOT ?>plugins/tables/datatables/dataTables.bootstrap.js"></script>
+<script src="<?= PUBLIC_ROOT ?>plugins/tables/datatables_1.13/DataTables-1.13.4/js/jquery.dataTables.min.js"></script>
 <script src="<?= PUBLIC_ROOT ?>plugins/tables/datatables/dataTables.checkboxes.min.js"></script>
 <!-- Custom scroll for sidebars,tables and etc. -->
 <script src="<?= PUBLIC_ROOT ?>plugins/core/slimscroll/jquery.slimscroll.min.js"></script>
@@ -45,11 +44,11 @@
 <?php Config::setJsConfig("csrfToken", Session::generateCsrfToken()); ?>
 <!-- Assign all configration variables -->
 <script>
-config = <?= json_encode(Config::getJsConfig()) ?>;
+  config = <?= json_encode(Config::getJsConfig()) ?>;
 </script>
 <!-- Run the application -->
 <script>
-$(document).ready(app.init());
+  $(document).ready(app.init());
 </script>
 
 <?php Database::closeConnection(); ?>

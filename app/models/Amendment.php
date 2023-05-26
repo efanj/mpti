@@ -20,6 +20,15 @@ class Amendment extends Model
     }
   }
 
+  public function checkDigitNull($data)
+  {
+    if ($data == null) {
+      return "0";
+    } else {
+      return $data;
+    }
+  }
+
   public function macthingtable($draw, $row, $rowperpage, $columnIndex, $columnName, $columnSortOrder, $searchValue)
   {
     $database = Database::openConnection();
@@ -242,10 +251,15 @@ class Amendment extends Model
     return $info;
   }
 
-  public function getAmendTable($draw, $row, $rowperpage, $columnIndex, $columnName, $columnSortOrder, $area = "", $street = "")
+  public function getAmendTable($draw, $row, $rowperpage, $columnIndex, $columnName, $columnSortOrder, $searchValue)
   {
     $database = Database::openConnection();
     $dboracle = new Oracle();
+
+    $searchQuery = "";
+    if ($searchValue != "") {
+      $searchQuery = "(CAST(no_siri AS TEXT) = '" . $searchValue . "' OR CAST(no_akaun AS TEXT) = '" . $searchValue . "' OR no_lot LIKE '%" . $searchValue . "%' OR CAST(plgid AS TEXT) = '" . $searchValue . "' OR nmbil LIKE '%" . $searchValue . "%' OR form LIKE '%" . $searchValue . "%')";
+    }
 
     ## Total number of records without filtering
     $sql = "SELECT count(*) AS allcount FROM data.v_submitioninfo ";
@@ -256,14 +270,10 @@ class Amendment extends Model
 
     ## Total number of record with filtering
     $sql = "SELECT count(*) AS allcount FROM data.v_submitioninfo ";
-    if ($area != "" && $street != "") {
-      $sql .= "WHERE kwkod = :kwkod AND jlkod = :jlkod";
+    if ($searchValue != "") {
+      $sql .= "WHERE " . $searchQuery;
     }
     $sel = $database->prepare($sql);
-    if ($area != "" && $street != "") {
-      $database->bindValue(":kwkod", $area);
-      $database->bindValue(":jlkod", $street);
-    }
     $database->execute($sel);
 
     $records = $database->fetchAssociative();
@@ -271,8 +281,8 @@ class Amendment extends Model
 
     ## Fetch records
     $query = "SELECT * FROM data.v_submitioninfo ";
-    if ($area != "" && $street != "") {
-      $query .= "WHERE kwkod = :kwkod AND jlkod = :jlkod";
+    if ($searchValue != "") {
+      $query .= "WHERE " . $searchQuery;
     }
     if ($columnName != "") {
       $query .= " ORDER BY " . $columnName . " " . $columnSortOrder;
@@ -280,10 +290,6 @@ class Amendment extends Model
     $query .= " LIMIT " . $rowperpage . " OFFSET " . $row;
 
     $database->prepare($query);
-    if ($area != "" && $street != "") {
-      $database->bindValue(":kwkod", $area);
-      $database->bindValue(":jlkod", $street);
-    }
     $database->execute();
 
     $row = $database->fetchAllAssociative();
@@ -309,12 +315,12 @@ class Amendment extends Model
       } else {
         $rowOutput["hnama"] = $val["htkod"];
       }
-      if ($val["thkod"] != 0) {
+      if ($val["bgkod"] != 0) {
         $rowOutput["bnama"] = $dboracle->getElementById("SPMC.V_HBANGN", "bgn_bnama", "bgn_bgkod", $val["bgkod"]);
       } else {
         $rowOutput["bnama"] = $val["bgkod"];
       }
-      if ($val["thkod"] != 0) {
+      if ($val["stkod"] != 0) {
         $rowOutput["snama"] = $dboracle->getElementById("SPMC.V_HSTBGN", "stb_snama", "stb_stkod", $val["stkod"]);
       } else {
         $rowOutput["snama"] = $val["stkod"];
@@ -322,9 +328,9 @@ class Amendment extends Model
       $rowOutput["nilth_asal"] = $info["peg_nilth"];
       $rowOutput["kadar_asal"] = $info["kaw_kadar"];
       $rowOutput["cukai_asal"] = $info["peg_tksir"];
-      $rowOutput["nilth_baru"] = $val["new_nilth"];
-      $rowOutput["kadar_baru"] = $val["new_rate"];
-      $rowOutput["cukai_baru"] = $val["new_tax"];
+      $rowOutput["nilth_baru"] = $this->checkDigitNull($val["new_nilth"]);
+      $rowOutput["kadar_baru"] = $this->checkDigitNull($val["new_rate"]);
+      $rowOutput["cukai_baru"] = $this->checkDigitNull($val["new_tax"]);
       $rowOutput["sebab"] = $dboracle->getElementById("SPMC.V_ACMRSN", "acm_sbktr", "acm_sbkod", $val["sebab"]);
       $rowOutput["mesej"] = $val["mesej"];
       // $rowOutput["status"] = $val["status"];
@@ -346,36 +352,37 @@ class Amendment extends Model
     return $response;
   }
 
-  public function getVerifyTable($draw, $row, $rowperpage, $columnIndex, $columnName, $columnSortOrder, $area = "", $street = "")
+  public function getVerifyTable($draw, $row, $rowperpage, $columnIndex, $columnName, $columnSortOrder, $searchValue)
   {
     $database = Database::openConnection();
 
+    $searchQuery = "";
+    if ($searchValue != "") {
+      $searchQuery = "(CAST(no_siri AS TEXT) = '" . $searchValue . "' OR CAST(no_akaun AS TEXT) = '" . $searchValue . "' OR no_lot LIKE '%" . $searchValue . "%' OR CAST(plgid AS TEXT) = '" . $searchValue . "' OR nmbil LIKE '%" . $searchValue . "%' OR form LIKE '%" . $searchValue . "%')";
+    }
+
     ## Total number of records without filtering
-    $sql = "SELECT count(*) AS allcount FROM data.v_verifyinfo ";
+    $sql = "SELECT count(*) AS allcount FROM data.v_submitioninfo ";
     $sel = $database->prepare($sql);
     $database->execute($sel);
     $records = $database->fetchAssociative();
     $totalRecords = $records["allcount"];
 
     ## Total number of record with filtering
-    $sql = "SELECT count(*) AS allcount FROM data.v_verifyinfo ";
-    if ($area != "" && $street != "") {
-      $sql .= "WHERE kwkod = :kwkod AND jlkod = :jlkod AND vstatus = 0";
+    $sql = "SELECT count(*) AS allcount FROM data.v_submitioninfo ";
+    if ($searchValue != "") {
+      $sql .= "WHERE " . $searchQuery;
     }
     $sel = $database->prepare($sql);
-    if ($area != "" && $street != "") {
-      $database->bindValue(":kwkod", $area);
-      $database->bindValue(":jlkod", $street);
-    }
     $database->execute($sel);
 
     $records = $database->fetchAssociative();
     $totalRecordwithFilter = $records["allcount"];
 
     ## Fetch records
-    $query = "SELECT * FROM data.v_verifyinfo ";
-    if ($area != "" && $street != "") {
-      $query .= "WHERE kwkod = :kwkod AND jlkod = :jlkod AND vstatus = 0";
+    $query = "SELECT * FROM data.v_submitioninfo ";
+    if ($searchValue != "") {
+      $query .= "WHERE " . $searchQuery;
     }
     if ($columnName != "") {
       $query .= " ORDER BY " . $columnName . " " . $columnSortOrder;
@@ -383,10 +390,6 @@ class Amendment extends Model
     $query .= " LIMIT " . $rowperpage . " OFFSET " . $row;
 
     $database->prepare($query);
-    if ($area != "" && $street != "") {
-      $database->bindValue(":kwkod", $area);
-      $database->bindValue(":jlkod", $street);
-    }
     $database->execute();
 
     $row = $database->fetchAllAssociative();
@@ -429,14 +432,94 @@ class Amendment extends Model
     return $response;
   }
 
-  public function getReviewTable($draw, $row, $rowperpage, $columnIndex, $columnName, $columnSortOrder, $searchValue, $area = "", $street = "")
+  public function getVerifyPsTable($draw, $row, $rowperpage, $columnIndex, $columnName, $columnSortOrder, $searchValue)
   {
     $database = Database::openConnection();
-    $dbOracle = Oracle::openOriConnection();
 
     $searchQuery = "";
     if ($searchValue != "") {
-      $searchQuery = "(CAST(r.mfa AS TEXT) = '" . $searchValue . "' OR CAST(r.afa AS TEXT) = '" . $searchValue . "' OR m.jln_jnama LIKE '%" . $searchValue . "%' OR CAST(h.peg_lsbgn AS TEXT) = '" . $searchValue . "' OR CAST(h.peg_nilth AS TEXT) = '" . $searchValue . "' OR h2.bgn_bnama LIKE '%" . $searchValue . "%')";
+      $searchQuery = "(CAST(no_siri AS TEXT) = '" . $searchValue . "' OR CAST(no_akaun AS TEXT) = '" . $searchValue . "')";
+    }
+
+    ## Total number of records without filtering
+    $sql = "SELECT count(*) AS allcount FROM data.v_submitioninfops ";
+    $sel = $database->prepare($sql);
+    $database->execute($sel);
+    $records = $database->fetchAssociative();
+    $totalRecords = $records["allcount"];
+
+    ## Total number of record with filtering
+    $sql = "SELECT count(*) AS allcount FROM data.v_submitioninfops ";
+    if ($searchValue != "") {
+      $sql .= "WHERE " . $searchQuery;
+    }
+    $sel = $database->prepare($sql);
+    $database->execute($sel);
+
+    $records = $database->fetchAssociative();
+    $totalRecordwithFilter = $records["allcount"];
+
+    ## Fetch records
+    $query = "SELECT * FROM data.v_submitioninfops ";
+    if ($searchValue != "") {
+      $query .= "WHERE " . $searchQuery;
+    }
+    if ($columnName != "") {
+      $query .= " ORDER BY " . $columnName . " " . $columnSortOrder;
+    }
+    $query .= " LIMIT " . $rowperpage . " OFFSET " . $row;
+
+    $database->prepare($query);
+    $database->execute();
+
+    $row = $database->fetchAllAssociative();
+    $output = [];
+    $rowOutput = [];
+    foreach ($row as $val) {
+      $rowOutput["noSiri"] = Encryption::encryptId($val["no_siri"]);
+      $rowOutput["noAcct"] = Encryption::encryptId($val["no_akaun"]);
+      $rowOutput["no_siri"] = $val["no_siri"];
+      $rowOutput["no_akaun"] = $val["no_akaun"];
+      $rowOutput["tkhpl"] = $val["tkhpl"];
+      $rowOutput["tkhtk"] = $val["tkhtk"];
+      $rowOutput["tnama"] = $val["tnama"];
+      $rowOutput["hnama"] = $val["hnama"];
+      $rowOutput["bnama"] = $val["bnama"];
+      $rowOutput["snama"] = $val["snama"];
+      $rowOutput["nilth_asal"] = $val["nilth_asal"];
+      $rowOutput["kadar_asal"] = $val["kadar_asal"];
+      $rowOutput["cukai_asal"] = $val["cukai_asal"];
+      $rowOutput["nilth_baru"] = $val["nilth_baru"];
+      $rowOutput["kadar_baru"] = $val["kadar_baru"];
+      $rowOutput["cukai_baru"] = $val["cukai_baru"];
+      $rowOutput["sebab"] = $val["sebab"];
+      $rowOutput["mesej"] = $val["mesej"];
+      $rowOutput["status"] = $val["status"];
+      $rowOutput["entry"] = $val["entry"];
+      $rowOutput["verifier"] = $val["verifier"];
+      $rowOutput["form"] = $val["form"];
+      $rowOutput["calctype"] = $val["calctype"];
+      array_push($output, $rowOutput);
+    }
+    ## Response
+    $response = [
+      "draw" => intval($draw),
+      "iTotalRecords" => $totalRecords,
+      "iTotalDisplayRecords" => $totalRecordwithFilter,
+      "aaData" => $output,
+    ];
+
+    return $response;
+  }
+
+  public function getReviewTable($draw, $row, $rowperpage, $columnIndex, $columnName, $columnSortOrder, $searchValue)
+  {
+    $database = Database::openConnection();
+    $dbOracle = new Oracle();
+
+    $searchQuery = "";
+    if ($searchValue != "") {
+      $searchQuery = "(CAST(no_siri AS TEXT) = '" . $searchValue . "' OR CAST(no_akaun AS TEXT) = '" . $searchValue . "')";
     }
 
     ## Total number of records without filtering
@@ -448,17 +531,10 @@ class Amendment extends Model
 
     ## Total number of record with filtering
     $sql = "SELECT count(*) AS allcount FROM data.v_submitioninfops v ";
-    if ($area != "" && $street != "") {
-      $sql .= "WHERE kwkod = :kwkod AND jlkod = :jlkod";
-    }
     if ($searchValue != "") {
       $sql .= "WHERE " . $searchQuery;
     }
     $sel = $database->prepare($sql);
-    if ($area != "" && $street != "") {
-      $database->bindValue(":kwkod", $area);
-      $database->bindValue(":jlkod", $street);
-    }
     $database->execute($sel);
 
     $records = $database->fetchAssociative();
@@ -466,9 +542,6 @@ class Amendment extends Model
 
     ## Fetch records
     $query = "SELECT v.* FROM data.v_submitioninfops v ";
-    if ($area != "" && $street != "") {
-      $query .= "WHERE kwkod = :kwkod AND jlkod = :jlkod";
-    }
     if ($searchValue != "") {
       $query .= "WHERE " . $searchQuery;
     }
@@ -478,19 +551,12 @@ class Amendment extends Model
     $query .= " LIMIT " . $rowperpage . " OFFSET " . $row;
 
     $database->prepare($query);
-    if ($area != "" && $street != "") {
-      $database->bindValue(":kwkod", $area);
-      $database->bindValue(":jlkod", $street);
-    }
     $database->execute();
 
     $rows = $database->fetchAllAssociative();
     $output = [];
     $rowOutput = [];
     foreach ($rows as $val) {
-
-      //$dbOracle->getReasonById($val["sebab"]);
-      // $sb = $dbOracle->fetchAssociative();
 
       $qry  = "SELECT vh.peg_nilth, vh.kaw_kadar, vh.peg_tksir, vb.bgn_bnama, vc.hrt_hnama, vd.tnh_tnama, ve.stb_snama FROM SPMC.V_HVNDUK vh ";
       $qry  .= "LEFT JOIN SPMC.V_HBANGN vb ON vh.peg_bgkod = vb.bgn_bgkod ";
@@ -539,6 +605,11 @@ class Amendment extends Model
       $rowOutput["nilth_beza"] = number_format($val["new_nilth"] - $nilth_asal, "2");
       $rowOutput["kadar_beza"] = $val["new_rate"] - $kadar_asal;
       $rowOutput["cukai_beza"] = number_format($val["new_tax"] - $cukai_asal, "2");
+      if ($val["sebab"] != null) {
+        $rowOutput["sebab"] = $dbOracle->getElementById("SPMC.V_ACMRSN", "acm_sbktr", "acm_sbkod", $val["sebab"]);
+      } else {
+        $rowOutput["sebab"] = $this->checkNull($val["sebab"]);
+      }
       $rowOutput["sebab"] = "=";
       $rowOutput["mesej"] = $val["mesej"];
       $rowOutput["status"] = $val["status"];

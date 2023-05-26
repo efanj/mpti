@@ -1,6 +1,6 @@
 //------------- blank.js -------------//
 $(document).ready(function () {
-  var api_url = "https://geoserver.mpti.gov.my/geoserver/penilaian/wms?"
+  var api_url = "https://geoserver.mdtapah.gov.my/geoserver/mdt/wms?"
   var popup = L.popup()
 
   var g_roadmap = new L.Google("ROADMAP")
@@ -8,29 +8,31 @@ $(document).ready(function () {
   var g_satellite = new L.Google("SATELLITE")
 
   var visitwmsLayer = L.tileLayer.betterWms(api_url, {
-    layers: "penilaian:v_semak",
+    layers: "mdt:v_semak",
     format: "image/png",
     transparent: true,
     maxZoom: 25
   })
-  // var paymentwmsLayer = L.tileLayer.betterWms(api_url, {
-  //   layers: "mdt:v_payment_all",
-  //   format: "image/png",
-  //   transparent: true,
-  //   maxZoom: 25,
-  // })
-  var kadlotwmsLayer = L.tileLayer.betterWms("https://geoserver.mpti.gov.my/geoserver/Perancang/wms?", {
-    layers: "Perancang:LOT",
+  var lotndcdbwmsLayer = L.tileLayer.betterWms(api_url, {
+    layers: "mdt:lot_ndcdb",
     format: "image/png",
     transparent: true,
     maxZoom: 25
   })
-  // var mukimwmsLayer = L.tileLayer.wms(api_url, {
-  //   layers: "mdt:mukim",
-  //   format: "image/png",
-  //   transparent: true,
-  //   maxZoom: 25,
-  // })
+
+  var lotkomitedwmsLayer = L.tileLayer.betterWms(api_url, {
+    layers: "mdt:lot_komited",
+    format: "image/png",
+    transparent: true,
+    maxZoom: 25
+  })
+
+  var lotperancangwmsLayer = L.tileLayer.betterWms(api_url, {
+    layers: "mdt:lot_perancang",
+    format: "image/png",
+    transparent: true,
+    maxZoom: 25
+  })
   var sempadanwmsLayer = L.tileLayer.wms(api_url, {
     layers: "mdt:daerah",
     format: "image/png",
@@ -39,8 +41,8 @@ $(document).ready(function () {
   })
 
   var map = L.map("mapView", {
-    center: [3.9451963, 100.9629367],
-    zoom: 10,
+    center: [4.0943935, 101.2823129],
+    zoom: 10.5,
     markerZoomAnimation: false,
     zoomControl: false,
     maxZoom: 25
@@ -65,7 +67,9 @@ $(document).ready(function () {
       expanded: true,
       layers: {
         Sempadan: sempadanwmsLayer,
-        Kadlot: kadlotwmsLayer
+        "Lot NDCDB": lotndcdbwmsLayer,
+        "Lot komited": lotkomitedwmsLayer,
+        "Lot Perancang": lotperancangwmsLayer
         // Dilawati: visitwmsLayer,
       }
     }
@@ -82,7 +86,9 @@ $(document).ready(function () {
   map.addControl(control)
   control.selectLayer(g_roadmap)
   control.selectLayer(sempadanwmsLayer)
-  control.selectLayer(kadlotwmsLayer)
+  control.selectLayer(lotndcdbwmsLayer)
+  control.selectLayer(lotkomitedwmsLayer)
+  control.selectLayer(lotperancangwmsLayer)
 
   var input = document.getElementById("google_term")
   var mdptBounds = new google.maps.LatLngBounds(new google.maps.LatLng(4.584785, 100.699578))
@@ -131,17 +137,17 @@ $(document).ready(function () {
 
   map.on("click", function (e) {
     lat = e.latlng.lat
-    lon = e.latlng.lng
+    lng = e.latlng.lng
 
     $("#codex").val(lat)
-    $("#codey").val(lon)
+    $("#codey").val(lng)
 
     if (theMarker != undefined) {
       map.removeLayer(theMarker)
     }
 
     //Add a marker to show where you clicked.
-    theMarker = L.marker([lat, lon]).addTo(map)
-    map.setView([lat, lon], 16)
+    theMarker = L.marker([lat, lng]).addTo(map)
+    map.setView([lat, lng], 16)
   })
 })

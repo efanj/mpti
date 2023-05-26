@@ -1,0 +1,200 @@
+24/05/2023, 19:49:47 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated
+*******************************************************************
+
+24/05/2023, 19:49:47 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+Uncaught ErrorException: http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated in /usr/local/var/www/mdt/portal/app/core/Request.php:347
+Stack trace:
+#0 [internal function]: Handler::handleError(8192, 'http_build_quer...', '/usr/local/var/...', 347)
+#1 /usr/local/var/www/mdt/portal/app/core/Request.php(347): http_build_query(Array, NULL, '&')
+#2 /usr/local/var/www/mdt/portal/app/core/Request.php(64): Request->fullUrl()
+#3 /usr/local/var/www/mdt/portal/app/core/Controller.php(58): Request->__construct()
+#4 /usr/local/var/www/mdt/portal/app/core/Handler.php(106): Controller->__construct()
+#5 /usr/local/var/www/mdt/portal/app/core/Handler.php(90): Handler::render(Object(ErrorException))
+#6 [internal function]: Handler::handleException(Object(ErrorException))
+#7 {main}
+  thrown
+*******************************************************************
+
+24/05/2023, 19:50:51 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated
+*******************************************************************
+
+24/05/2023, 19:50:51 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+Uncaught ErrorException: http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated in /usr/local/var/www/mdt/portal/app/core/Request.php:347
+Stack trace:
+#0 [internal function]: Handler::handleError(8192, 'http_build_quer...', '/usr/local/var/...', 347)
+#1 /usr/local/var/www/mdt/portal/app/core/Request.php(347): http_build_query(Array, NULL, '&')
+#2 /usr/local/var/www/mdt/portal/app/core/Request.php(64): Request->fullUrl()
+#3 /usr/local/var/www/mdt/portal/app/core/Controller.php(58): Request->__construct()
+#4 /usr/local/var/www/mdt/portal/app/core/Handler.php(106): Controller->__construct()
+#5 /usr/local/var/www/mdt/portal/app/core/Handler.php(90): Handler::render(Object(ErrorException))
+#6 [internal function]: Handler::handleException(Object(ErrorException))
+#7 {main}
+  thrown
+*******************************************************************
+
+24/05/2023, 20:24:30 | /usr/local/var/www/mdt/portal/app/models/Informations.php | 1755 | ErrorException
+Trying to access array offset on value of type bool
+*******************************************************************
+
+24/05/2023, 20:58:21 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated
+*******************************************************************
+
+24/05/2023, 20:58:21 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+Uncaught ErrorException: http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated in /usr/local/var/www/mdt/portal/app/core/Request.php:347
+Stack trace:
+#0 [internal function]: Handler::handleError(8192, 'http_build_quer...', '/usr/local/var/...', 347)
+#1 /usr/local/var/www/mdt/portal/app/core/Request.php(347): http_build_query(Array, NULL, '&')
+#2 /usr/local/var/www/mdt/portal/app/core/Request.php(64): Request->fullUrl()
+#3 /usr/local/var/www/mdt/portal/app/core/Controller.php(58): Request->__construct()
+#4 /usr/local/var/www/mdt/portal/app/core/Handler.php(106): Controller->__construct()
+#5 /usr/local/var/www/mdt/portal/app/core/Handler.php(90): Handler::render(Object(ErrorException))
+#6 [internal function]: Handler::handleException(Object(ErrorException))
+#7 {main}
+  thrown
+*******************************************************************
+
+24/05/2023, 20:59:15 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated
+*******************************************************************
+
+24/05/2023, 20:59:15 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+Uncaught ErrorException: http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated in /usr/local/var/www/mdt/portal/app/core/Request.php:347
+Stack trace:
+#0 [internal function]: Handler::handleError(8192, 'http_build_quer...', '/usr/local/var/...', 347)
+#1 /usr/local/var/www/mdt/portal/app/core/Request.php(347): http_build_query(Array, NULL, '&')
+#2 /usr/local/var/www/mdt/portal/app/core/Request.php(64): Request->fullUrl()
+#3 /usr/local/var/www/mdt/portal/app/core/Controller.php(58): Request->__construct()
+#4 /usr/local/var/www/mdt/portal/app/core/Handler.php(106): Controller->__construct()
+#5 /usr/local/var/www/mdt/portal/app/core/Handler.php(90): Handler::render(Object(ErrorException))
+#6 [internal function]: Handler::handleException(Object(ErrorException))
+#7 {main}
+  thrown
+*******************************************************************
+
+24/05/2023, 20:59:37 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated
+*******************************************************************
+
+24/05/2023, 20:59:37 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+Uncaught ErrorException: http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated in /usr/local/var/www/mdt/portal/app/core/Request.php:347
+Stack trace:
+#0 [internal function]: Handler::handleError(8192, 'http_build_quer...', '/usr/local/var/...', 347)
+#1 /usr/local/var/www/mdt/portal/app/core/Request.php(347): http_build_query(Array, NULL, '&')
+#2 /usr/local/var/www/mdt/portal/app/core/Request.php(64): Request->fullUrl()
+#3 /usr/local/var/www/mdt/portal/app/core/Controller.php(58): Request->__construct()
+#4 /usr/local/var/www/mdt/portal/app/core/Handler.php(106): Controller->__construct()
+#5 /usr/local/var/www/mdt/portal/app/core/Handler.php(90): Handler::render(Object(ErrorException))
+#6 [internal function]: Handler::handleException(Object(ErrorException))
+#7 {main}
+  thrown
+*******************************************************************
+
+24/05/2023, 21:02:06 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated
+*******************************************************************
+
+24/05/2023, 21:02:06 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+Uncaught ErrorException: http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated in /usr/local/var/www/mdt/portal/app/core/Request.php:347
+Stack trace:
+#0 [internal function]: Handler::handleError(8192, 'http_build_quer...', '/usr/local/var/...', 347)
+#1 /usr/local/var/www/mdt/portal/app/core/Request.php(347): http_build_query(Array, NULL, '&')
+#2 /usr/local/var/www/mdt/portal/app/core/Request.php(64): Request->fullUrl()
+#3 /usr/local/var/www/mdt/portal/app/core/Controller.php(58): Request->__construct()
+#4 /usr/local/var/www/mdt/portal/app/core/Handler.php(106): Controller->__construct()
+#5 /usr/local/var/www/mdt/portal/app/core/Handler.php(90): Handler::render(Object(ErrorException))
+#6 [internal function]: Handler::handleException(Object(ErrorException))
+#7 {main}
+  thrown
+*******************************************************************
+
+24/05/2023, 21:18:35 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated
+*******************************************************************
+
+24/05/2023, 21:18:35 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+Uncaught ErrorException: http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated in /usr/local/var/www/mdt/portal/app/core/Request.php:347
+Stack trace:
+#0 [internal function]: Handler::handleError(8192, 'http_build_quer...', '/usr/local/var/...', 347)
+#1 /usr/local/var/www/mdt/portal/app/core/Request.php(347): http_build_query(Array, NULL, '&')
+#2 /usr/local/var/www/mdt/portal/app/core/Request.php(64): Request->fullUrl()
+#3 /usr/local/var/www/mdt/portal/app/core/Controller.php(58): Request->__construct()
+#4 /usr/local/var/www/mdt/portal/app/core/Handler.php(106): Controller->__construct()
+#5 /usr/local/var/www/mdt/portal/app/core/Handler.php(90): Handler::render(Object(ErrorException))
+#6 [internal function]: Handler::handleException(Object(ErrorException))
+#7 {main}
+  thrown
+*******************************************************************
+
+24/05/2023, 21:21:34 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated
+*******************************************************************
+
+24/05/2023, 21:21:34 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+Uncaught ErrorException: http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated in /usr/local/var/www/mdt/portal/app/core/Request.php:347
+Stack trace:
+#0 [internal function]: Handler::handleError(8192, 'http_build_quer...', '/usr/local/var/...', 347)
+#1 /usr/local/var/www/mdt/portal/app/core/Request.php(347): http_build_query(Array, NULL, '&')
+#2 /usr/local/var/www/mdt/portal/app/core/Request.php(64): Request->fullUrl()
+#3 /usr/local/var/www/mdt/portal/app/core/Controller.php(58): Request->__construct()
+#4 /usr/local/var/www/mdt/portal/app/core/Handler.php(106): Controller->__construct()
+#5 /usr/local/var/www/mdt/portal/app/core/Handler.php(90): Handler::render(Object(ErrorException))
+#6 [internal function]: Handler::handleException(Object(ErrorException))
+#7 {main}
+  thrown
+*******************************************************************
+
+24/05/2023, 21:50:56 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated
+*******************************************************************
+
+24/05/2023, 21:50:56 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+Uncaught ErrorException: http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated in /usr/local/var/www/mdt/portal/app/core/Request.php:347
+Stack trace:
+#0 [internal function]: Handler::handleError(8192, 'http_build_quer...', '/usr/local/var/...', 347)
+#1 /usr/local/var/www/mdt/portal/app/core/Request.php(347): http_build_query(Array, NULL, '&')
+#2 /usr/local/var/www/mdt/portal/app/core/Request.php(64): Request->fullUrl()
+#3 /usr/local/var/www/mdt/portal/app/core/Controller.php(58): Request->__construct()
+#4 /usr/local/var/www/mdt/portal/app/core/Handler.php(106): Controller->__construct()
+#5 /usr/local/var/www/mdt/portal/app/core/Handler.php(90): Handler::render(Object(ErrorException))
+#6 [internal function]: Handler::handleException(Object(ErrorException))
+#7 {main}
+  thrown
+*******************************************************************
+
+24/05/2023, 21:52:41 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated
+*******************************************************************
+
+24/05/2023, 21:52:41 | /usr/local/var/www/mdt/portal/app/core/Request.php | 347 | ErrorException
+Uncaught ErrorException: http_build_query(): Passing null to parameter #2 ($numeric_prefix) of type string is deprecated in /usr/local/var/www/mdt/portal/app/core/Request.php:347
+Stack trace:
+#0 [internal function]: Handler::handleError(8192, 'http_build_quer...', '/usr/local/var/...', 347)
+#1 /usr/local/var/www/mdt/portal/app/core/Request.php(347): http_build_query(Array, NULL, '&')
+#2 /usr/local/var/www/mdt/portal/app/core/Request.php(64): Request->fullUrl()
+#3 /usr/local/var/www/mdt/portal/app/core/Controller.php(58): Request->__construct()
+#4 /usr/local/var/www/mdt/portal/app/core/Handler.php(106): Controller->__construct()
+#5 /usr/local/var/www/mdt/portal/app/core/Handler.php(90): Handler::render(Object(ErrorException))
+#6 [internal function]: Handler::handleException(Object(ErrorException))
+#7 {main}
+  thrown
+*******************************************************************
+
+26/05/2023, 02:06:28 | /usr/local/var/www/mdt/portal/app/core/components/SecurityComponent.php | 238 | CSRF Attack
+User: 5 provided invalid CSRF Token 62b72cc5f77b227200b83c38a18c81ae
+*******************************************************************
+
+26/05/2023, 02:06:28 | /usr/local/var/www/mdt/portal/app/core/components/SecurityComponent.php | 136 | Exception
+The request has been deined
+*******************************************************************
+
+26/05/2023, 02:06:31 | /usr/local/var/www/mdt/portal/app/core/components/SecurityComponent.php | 238 | CSRF Attack
+User: 5 provided invalid CSRF Token 62b72cc5f77b227200b83c38a18c81ae
+*******************************************************************
+
+26/05/2023, 02:06:31 | /usr/local/var/www/mdt/portal/app/core/components/SecurityComponent.php | 136 | Exception
+The request has been deined
+*******************************************************************
+

@@ -107,6 +107,7 @@ $(document).ready(function () {
       dataType: "json",
       data: data
     }).done(function (result) {
+      console.log(result)
       if (result === true) {
         swal(
           {
@@ -125,5 +126,13 @@ $(document).ready(function () {
         swal("Oops...", "Nilaian Kediaman, tidak berjaya dikemaskini!", "error")
       }
     })
+  })
+
+  $("#print").click(function () {
+    var btn_print = $(this)
+    var siriNo = btn_print.data("sirino")
+    console.log(siriNo)
+    var url = config.root + "Printing/calccomparison/" + siriNo
+    window.open(url, "_blank")
   })
 })

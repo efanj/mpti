@@ -1,6 +1,6 @@
 //------------- blank.js -------------//
 $(document).ready(function () {
-  var api_url = "https://geoserver.mpti.gov.my/geoserver/penilaian/wms?"
+  var api_url = "https://geoserver.mdtapah.gov.my/geoserver/mdt/wms?"
   var popup = L.popup()
 
   var g_roadmap = new L.Google("ROADMAP")
@@ -8,7 +8,7 @@ $(document).ready(function () {
   var g_satellite = new L.Google("SATELLITE")
 
   var visitwmsLayer = L.tileLayer.betterWms(api_url, {
-    layers: "penilaian:v_semak",
+    layers: "mdt:v_semak",
     format: "image/png",
     transparent: true,
     maxZoom: 25
@@ -19,18 +19,27 @@ $(document).ready(function () {
   //   transparent: true,
   //   maxZoom: 25,
   // })
-  var kadlotwmsLayer = L.tileLayer.betterWms("https://geoserver.mpti.gov.my/geoserver/Perancang/wms?", {
-    layers: "Perancang:LOT",
+  var lotndcdbwmsLayer = L.tileLayer.betterWms(api_url, {
+    layers: "mdt:lot_ndcdb",
     format: "image/png",
     transparent: true,
     maxZoom: 25
   })
-  // var mukimwmsLayer = L.tileLayer.wms(api_url, {
-  //   layers: "mdt:mukim",
-  //   format: "image/png",
-  //   transparent: true,
-  //   maxZoom: 25,
-  // })
+
+  var lotkomitedwmsLayer = L.tileLayer.betterWms(api_url, {
+    layers: "mdt:lot_komited",
+    format: "image/png",
+    transparent: true,
+    maxZoom: 25
+  })
+
+  var lotperancangwmsLayer = L.tileLayer.betterWms(api_url, {
+    layers: "mdt:lot_perancang",
+    format: "image/png",
+    transparent: true,
+    maxZoom: 25
+  })
+
   var sempadanwmsLayer = L.tileLayer.wms(api_url, {
     layers: "mdt:daerah",
     format: "image/png",
@@ -39,7 +48,7 @@ $(document).ready(function () {
   })
 
   var map = L.map("mapView", {
-    center: [3.9451963, 100.9629367],
+    center: [4.0500455, 101.3585305],
     zoom: 10,
     markerZoomAnimation: false,
     zoomControl: false,
@@ -65,7 +74,9 @@ $(document).ready(function () {
       expanded: true,
       layers: {
         Sempadan: sempadanwmsLayer,
-        Kadlot: kadlotwmsLayer
+        "Lot NDCDB": lotndcdbwmsLayer,
+        "Lot komited": lotkomitedwmsLayer,
+        "Lot Perancang": lotperancangwmsLayer
         // Dilawati: visitwmsLayer,
       }
     }
@@ -82,7 +93,45 @@ $(document).ready(function () {
   map.addControl(control)
   control.selectLayer(g_roadmap)
   control.selectLayer(sempadanwmsLayer)
-  control.selectLayer(kadlotwmsLayer)
+  control.selectLayer(lotndcdbwmsLayer)
+  control.selectLayer(lotkomitedwmsLayer)
+  control.selectLayer(lotperancangwmsLayer)
+
+  var bounds = map.getBounds()
+  var southWest = bounds.getSouthWest()
+  var northEast = bounds.getNorthEast()
+  // console.log(southWest, northEast)
+  var input = document.getElementById("google_term")
+  var bounds = new google.maps.LatLngBounds(new google.maps.LatLng(southWest), new google.maps.LatLng(northEast))
+  var options = {
+    bounds: bounds,
+    // location: new google.maps.LatLng(4.265604, 100.9320657),
+    radius: 25000, // (in meters; this is 15Km)
+    types: ["establishment"],
+    strictBounds: true,
+    componentRestrictions: {
+      country: ["my"]
+    }
+  }
+  var autocomplete = new google.maps.places.Autocomplete(input, options)
+  autocomplete.addListener("place_changed", function () {
+    // clearOverlayVector();
+    var places = autocomplete.getPlace()
+
+    if (!places.geometry) {
+      window.alert("No details available for input: '" + places.name + "'")
+      return
+    }
+
+    var group = L.featureGroup()
+
+    // Create a marker for each place.
+    var marker = L.marker([places.geometry.location.lat(), places.geometry.location.lng()])
+    group.addLayer(marker)
+
+    group.addTo(map)
+    map.fitBounds(group.getBounds())
+  })
 
   map.on("overlayadd", function (eventLayer) {
     if (eventLayer.name === "Bayaran") {
@@ -97,8 +146,10 @@ $(document).ready(function () {
 
   map.on("click", function (e) {
     console.log(e.latlng)
-    $("#codex").val(e.latlng.lat)
-    $("#codey").val(e.latlng.lng)
+    var lat = e.latlng.lat
+    var lng = e.latlng.lng
+    $("#codex").val(lat.toString().substr(0, 15))
+    $("#codey").val(lng.toString().substr(0, 15))
     const lnglat = [e.latlng.lat, e.latlng.lng]
     map.setView(lnglat, 16)
   })
@@ -106,7 +157,7 @@ $(document).ready(function () {
   function addMarker() {
     var lat, lng
     if ($("#codex").val() === "") {
-      map.setView(new L.LatLng(4.0500455, 101.3585305), 10)
+      map.setView(new L.LatLng(4.0943935, 101.2823129), 10)
     } else {
       lat = $("#codex").val()
       lng = $("#codey").val()

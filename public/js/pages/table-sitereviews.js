@@ -47,6 +47,16 @@ function format(d) {
     "<td>" +
     d.jln_kname +
     "</td>" +
+    "<td style='background-color: #f4f5f5;'><b>Koordinat X:</b></td>" +
+    "<td>" +
+    d.smk_codex +
+    "</td>" +
+    "<td style='background-color: #f4f5f5;'><b>Koordinat Y:</b></td>" +
+    "<td>" +
+    d.smk_codey +
+    "</td>" +
+    "</tr>" +
+    "<tr>" +
     "<td style='background-color: #f4f5f5;'><b>No. Pelan:</b></td>" +
     "<td>" +
     d.peg_pelan +
@@ -55,6 +65,10 @@ function format(d) {
     "<td>" +
     d.peg_rjmmk +
     "</td>" +
+    "<td style='background-color: #f4f5f5;'></td>" +
+    "<td></td>" +
+    "<td style='background-color: #f4f5f5;'></td>" +
+    "<td></td>" +
     "</tr>" +
     "<tr>" +
     "<td style='background-color: #f4f5f5;'><b>Kegunaan Tanah:</b></td>" +
@@ -96,10 +110,12 @@ function format(d) {
 }
 
 var table = $("#sitereviews").DataTable({
-  pageLength: 10,
+  scrollY: "50vh",
+  scrollCollapse: true,
+  pageLength: 50,
   lengthMenu: [
-    [10, 20, 50, 100],
-    [10, 20, 50, 100]
+    [50, 100, 500, 1000, 2000],
+    [50, 100, 500, 1000, 2000]
   ],
   processing: true,
   serverSide: true,
@@ -118,7 +134,7 @@ var table = $("#sitereviews").DataTable({
   columnDefs: [
     {
       targets: 0,
-      data: "sid",
+      data: "smk_akaun",
       checkboxes: {
         selectRow: true
       }
@@ -133,7 +149,7 @@ var table = $("#sitereviews").DataTable({
     },
     {
       targets: 2,
-      orderable: false,
+      orderable: true,
       data: null,
       render: function (data, type, row, meta) {
         // console.log(row);
@@ -145,17 +161,19 @@ var table = $("#sitereviews").DataTable({
     },
     {
       targets: 3,
-      orderable: false,
-      data: "jln_jnama"
+      orderable: true,
+      data: null,
+      render: function (data, type, row, meta) {
+        // console.log(row);
+        if (type === "display") {
+          data = row.jln_jnama + "<br>" + row.hrt_hnama
+        }
+        return data
+      }
     },
     {
       targets: 4,
-      orderable: false,
-      data: "hrt_hnama"
-    },
-    {
-      targets: 5,
-      orderable: false,
+      orderable: true,
       data: null,
       render: function (data, type, row, meta) {
         if (type === "display") {
@@ -165,7 +183,7 @@ var table = $("#sitereviews").DataTable({
       }
     },
     {
-      targets: 6,
+      targets: 5,
       orderable: false,
       data: null,
       render: function (data, type, row, meta) {
@@ -176,7 +194,7 @@ var table = $("#sitereviews").DataTable({
       }
     },
     {
-      targets: 7,
+      targets: 6,
       orderable: false,
       data: null,
       render: function (data, type, row, meta) {
@@ -187,20 +205,45 @@ var table = $("#sitereviews").DataTable({
       }
     },
     {
-      targets: 8,
+      targets: 7,
       orderable: false,
+      className: "dt-body-center",
       data: null,
       render: function (data, type, row, meta) {
         // console.log(row.smk_type)
         if (type === "display") {
           if (row.smk_type === 1) {
-            data = "<span class='label label-default'>Akaun Baru</span>"
+            data = "Akaun Baru"
           }
           if (row.smk_type === 2) {
-            data = "<span class='label label-primary'>Pindaan</span>"
+            data = "Pindaan"
           }
           if (row.smk_type === 3) {
-            data = "<span class='label label-success'>KemasKini Data</span>"
+            data = "KemasKini Data"
+          }
+        }
+        return data
+      }
+    },
+    {
+      targets: 8,
+      orderable: true,
+      className: "dt-body-center",
+      data: null,
+      render: function (data, type, row, meta) {
+        if (type === "display") {
+          if (row.smk_stspn == "0") {
+            data = "<span class='label label-default'>Baru</span>"
+          } else if (row.smk_stspn == "1") {
+            data = "<span class='label label-info'>Baca</span>"
+          } else if (row.smk_stspn == "2") {
+            data = "<span class='label label-primary'>Serah</span>"
+          } else if (row.smk_stspn == "3") {
+            data = "<span class='label label-success'>Diterima</span>"
+          } else if (row.smk_stspn == "4") {
+            data = "<span class='label label-warning'>Semak Semula</span>"
+          } else if (row.smk_stspn == "5") {
+            data = "<span class='label label-primary'>Serah Kembali</span>"
           }
         }
         return data
@@ -212,34 +255,13 @@ var table = $("#sitereviews").DataTable({
       data: null,
       render: function (data, type, row, meta) {
         if (type === "display") {
-          if (row.smk_stspn == "0") {
-            data = "Baru"
-          } else if (row.smk_stspn == "1") {
-            data = "Baca"
-          } else if (row.smk_stspn == "2") {
-            data = "Serah"
-          } else if (row.smk_stspn == "3") {
-            data = "Semak Semula"
-          } else if (row.smk_stspn == "4") {
-            data = "Serah Kembali"
-          }
-        }
-        return data
-      }
-    },
-    {
-      targets: 10,
-      orderable: false,
-      data: null,
-      render: function (data, type, row, meta) {
-        if (type === "display") {
           data = row.smk_datevisit + "</br>" + row.smk_timevisit
         }
         return data
       }
     },
     {
-      targets: 11,
+      targets: 10,
       orderable: true,
       data: null,
       render: function (data, type, row, meta) {
@@ -250,18 +272,18 @@ var table = $("#sitereviews").DataTable({
       }
     },
     {
-      targets: 12,
+      targets: 11,
       orderable: false,
       className: "dt-body-center",
       data: null,
       render: function (data, type, row, meta) {
         if (type === "display") {
           data = '<div class="btn-group btn-group-xs" role="group">'
-          data += '<a href="#" class="btn btn-warning btn-xs edit-area" title="Kemaskini Luas Tambahan"><i class="fa fa-edit color-dark"></i></a>'
+          data += '<a href="editsitereview/' + row.id + '" class="btn btn-default btn-alt btn-xs edit-area" title="Kemaskini"><i class="fa fa-pencil color-dark"></i></a>'
           if (row.sirino != "-") {
-            data += '<a href="' + row.calctype + "/" + row.sirino + '" class="btn btn-success btn-xs" title="Borang Nilaian"><i class="fa fa-calculator"></i></a>'
+            data += '<a href="' + row.calctype + "/" + row.sirino + '" class="btn btn-success btn-alt btn-xs" title="Borang Nilaian"><i class="fa fa-calculator"></i></a>'
           } else {
-            data += '<a href="' + row.calctype + "/" + row.id + '" class="btn btn-default btn-xs" title="Borang Nilaian"><i class="fa fa-calculator"></i></a>'
+            data += '<a href="' + row.calctype + "/" + row.id + '" class="btn btn-default btn-alt btn-xs" title="Borang Nilaian"><i class="fa fa-calculator"></i></a>'
           }
           data += '<a href="viewimages/' + row.id + '" class="btn '
           if (row.file != null) {
@@ -269,14 +291,14 @@ var table = $("#sitereviews").DataTable({
           } else {
             data += "btn-default"
           }
-          data += ' btn-xs" title="Gambar"><i class="fa fa-file-photo-o"></i></a>'
+          data += ' btn-alt btn-xs" title="Gambar"><i class="fa fa-file-photo-o"></i></a>'
           data += '<a href="viewdocuments/' + row.id + '" class="btn '
           if (row.doc != null) {
             data += "btn-success"
           } else {
             data += "btn-default"
           }
-          data += ' btn-xs" title="Dokumen"><i class="fa fa-file-pdf-o"></i></a>'
+          data += ' btn-alt btn-xs" title="Dokumen"><i class="fa fa-file-pdf-o"></i></a>'
           data += '<a class="btn btn-danger btn-xs remove" title="Padam" id="remove" data-id="' + row.id + '"><i class="fa fa-trash"></i></a>'
           data += "</div>"
         }
@@ -287,7 +309,7 @@ var table = $("#sitereviews").DataTable({
   select: {
     style: "multi"
   },
-  order: [[9, "asc"]],
+  order: [[8, "asc"]],
   language: {
     search: "Saring : ",
     lengthMenu: "Paparkan _MENU_ rekod",
@@ -321,6 +343,18 @@ $("#sitereviews tbody").on("click", "td.details-control", function () {
   }
 })
 
+$("#print").click(function () {
+  var fileId = $("#area").val()
+  var street = $("#street").val()
+  var search = $("#sitereviews_filter [type=search]").val()
+
+  // var fileId = { area, street, search }
+
+  console.log(area, street, search)
+  var url = config.root + "Printing/sitereviews/" + fileId
+  window.open(url, "_blank")
+})
+
 $("#form-verifylists").on("submit", function (e) {
   $("#submit_popup").modal("show")
   var form = this
@@ -336,22 +370,21 @@ $("#form-verifylists").on("submit", function (e) {
   e.preventDefault()
 })
 
-$("body").on("click", ".edit-area", function () {
-  $("#luas_popup").modal("show")
-  var row = $(this).parents("tr")[0]
-  var rowindex = $(this).closest("tr").index()
-  var rowval = table.row(row).data()
+// $("body").on("click", ".edit-area", function () {
+//   $("#luas_popup").modal("show")
+//   var row = $(this).parents("tr")[0]
+//   var rowindex = $(this).closest("tr").index()
+//   var rowval = table.row(row).data()
 
-  $("#index").val(rowindex)
-  $("#id").val(rowval.id)
-  $("#akaun").val(rowval.akaun)
-  console.log(rowindex)
-  // console.log(table.row(row).data())
-})
+//   $("#index").val(rowindex)
+//   $("#id").val(rowval.id)
+//   $("#akaun").val(rowval.akaun)
+//   console.log(rowindex)
+//   // console.log(table.row(row).data())
+// })
 
 $(document).ready(function () {
   $("#tarikh").datepicker()
-  table.draw()
 
   $("#filter").bind("click", function () {
     var area = $("#area").val()

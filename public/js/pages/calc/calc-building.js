@@ -1,4 +1,10 @@
 $(document).ready(function () {
+  var lsans = $("#luas_ansolari").val()
+  var lsbgnt = $("#tamb_bangunan").val()
+  var lsanst = $("#tamb_ansolari").val()
+  //console.log(lsans, lsbgnt, lsanst)
+  addRowBuilding(lsans, lsbgnt, lsanst)
+
   var popup_comparison = $("#popup_comparison").DataTable({
     processing: true,
     serverSide: true,
@@ -49,7 +55,7 @@ $(document).ready(function () {
         data: "afa"
       }
     ],
-    order: [[1, "asc"]],
+    order: [[0, "asc"]],
     language: {
       search: "Saring : ",
       lengthMenu: "Paparkan _MENU_ rekod",
@@ -231,7 +237,7 @@ $(document).ready(function () {
       .find("table")
       .attr("id")
     var added = document.querySelectorAll("tbody#" + tableId + " tr").length
-    console.log(tableId)
+    //console.log(tableId)
     for (var i = 0; i < rowAmmount; i++) {
       var rowId = i + added
       var row_one = '<tr id="' + rowId + '"><td><input type="text" class="form-control input-sm" name="section_one[' + Id + "][item][" + rowId + '][title_one]"></td>'
@@ -257,6 +263,84 @@ $(document).ready(function () {
     tableBody = $(".section_one table#" + tableId + " tbody")
     tableBody.append(row_one)
   })
+
+  function addRowBuilding(lsans, lsbgnt, lsanst) {
+    var Id = "0"
+    var tableId = "zero"
+    var added = document.querySelectorAll("tbody#" + tableId + " tr").length
+    var rowId = added + 1
+    tableBody = $(".section_one table#" + tableId + " tbody")
+    console.log(lsans, lsbgnt, lsanst)
+    if (lsbgnt != "" && lsbgnt > 0) {
+      console.log(lsbgnt)
+      var row_one = '<tr id="' + rowId + '"><td><input type="text" class="form-control input-sm" name="section_one[' + Id + "][item][" + rowId + '][title_one]" value="MFA - Tambahan"></td>'
+      row_one += '<td><input type="number" class="form-control input-sm" name="section_one[' + Id + "][item][" + rowId + '][breadth_one]" id="breadth_one" min="0" value="' + lsbgnt + '"></td>'
+      row_one += '<td><select class="form-control input-sm" name="section_one[' + Id + "][item][" + rowId + '][breadthtype_one]">'
+      row_one += "<option value=''>Sila Pilih</option>"
+      row_one += '<option value="mp" selected>Meter</option>'
+      row_one += '<option value="ft">Kaki</option>'
+      row_one += '<option value="unit">Unit</option>'
+      row_one += "</select></td>"
+      row_one += '<td style="text-align:center">X</td>'
+      row_one += '<td><input type="number" class="form-control input-sm" name="section_one[' + Id + "][item][" + rowId + '][price_one]" id="price_one" min="0" value="0"></td>'
+      row_one += '<td><select class="form-control input-sm" name="section_one[' + Id + "][item][" + rowId + '][pricetype_one]">'
+      row_one += "<option value=''>Sila Pilih</option>"
+      row_one += '<option value="smp" selected>Meter Persegi</option>'
+      row_one += '<option value="sft">Kaki Persegi</option>'
+      row_one += '<option value="p/unit">Per-Unit</option>'
+      row_one += "</select></td>"
+      row_one += '<td><input type="number" class="form-control input-sm ttl_partly" name="section_one[' + Id + "][item][" + rowId + '][total_one]" id="total_one" readonly></td>'
+      row_one += '<td><a href="javascript:void(0);" class="btn btn-danger btn-xs" id="delete_one" type="button"><i class="fa fa-trash"></i></a></td></tr>'
+
+      tableBody.append(row_one)
+    }
+    if (lsans != "" && lsans > 0) {
+      //console.log(lsans)
+      var row_one = '<tr id="' + rowId + '"><td><input type="text" class="form-control input-sm" name="section_one[' + Id + "][item][" + rowId + '][title_one]" value="AFA"></td>'
+      row_one += '<td><input type="number" class="form-control input-sm" name="section_one[' + Id + "][item][" + rowId + '][breadth_one]" id="breadth_one" min="0" value="' + lsans + '"></td>'
+      row_one += '<td><select class="form-control input-sm" name="section_one[' + Id + "][item][" + rowId + '][breadthtype_one]">'
+      row_one += "<option value=''>Sila Pilih</option>"
+      row_one += '<option value="mp" selected>Meter</option>'
+      row_one += '<option value="ft">Kaki</option>'
+      row_one += '<option value="unit">Unit</option>'
+      row_one += "</select></td>"
+      row_one += '<td style="text-align:center">X</td>'
+      row_one += '<td><input type="number" class="form-control input-sm" name="section_one[' + Id + "][item][" + rowId + '][price_one]" id="price_one" min="0" value="0"></td>'
+      row_one += '<td><select class="form-control input-sm" name="section_one[' + Id + "][item][" + rowId + '][pricetype_one]">'
+      row_one += "<option value=''>Sila Pilih</option>"
+      row_one += '<option value="smp" selected>Meter Persegi</option>'
+      row_one += '<option value="sft">Kaki Persegi</option>'
+      row_one += '<option value="p/unit">Per-Unit</option>'
+      row_one += "</select></td>"
+      row_one += '<td><input type="number" class="form-control input-sm ttl_partly" name="section_one[' + Id + "][item][" + rowId + '][total_one]" id="total_one" readonly></td>'
+      row_one += '<td><a href="javascript:void(0);" class="btn btn-danger btn-xs" id="delete_one" type="button"><i class="fa fa-trash"></i></a></td></tr>'
+
+      tableBody.append(row_one)
+    }
+    if (lsanst != "" && lsanst > 0) {
+      console.log(lsanst)
+      var row_one = '<tr id="' + rowId + '"><td><input type="text" class="form-control input-sm" name="section_one[' + Id + "][item][" + rowId + '][title_one]" value="AFA - Tambahan"></td>'
+      row_one += '<td><input type="number" class="form-control input-sm" name="section_one[' + Id + "][item][" + rowId + '][breadth_one]" id="breadth_one" min="0" value="' + lsanst + '"></td>'
+      row_one += '<td><select class="form-control input-sm" name="section_one[' + Id + "][item][" + rowId + '][breadthtype_one]">'
+      row_one += "<option value=''>Sila Pilih</option>"
+      row_one += '<option value="mp" selected>Meter</option>'
+      row_one += '<option value="ft">Kaki</option>'
+      row_one += '<option value="unit">Unit</option>'
+      row_one += "</select></td>"
+      row_one += '<td style="text-align:center">X</td>'
+      row_one += '<td><input type="number" class="form-control input-sm" name="section_one[' + Id + "][item][" + rowId + '][price_one]" id="price_one" min="0" value="0"></td>'
+      row_one += '<td><select class="form-control input-sm" name="section_one[' + Id + "][item][" + rowId + '][pricetype_one]">'
+      row_one += "<option value=''>Sila Pilih</option>"
+      row_one += '<option value="smp" selected>Meter Persegi</option>'
+      row_one += '<option value="sft">Kaki Persegi</option>'
+      row_one += '<option value="p/unit">Per-Unit</option>'
+      row_one += "</select></td>"
+      row_one += '<td><input type="number" class="form-control input-sm ttl_partly" name="section_one[' + Id + "][item][" + rowId + '][total_one]" id="total_one" readonly></td>'
+      row_one += '<td><a href="javascript:void(0);" class="btn btn-danger btn-xs" id="delete_one" type="button"><i class="fa fa-trash"></i></a></td></tr>'
+
+      tableBody.append(row_one)
+    }
+  }
 
   $("body").on("click", ".add-two", function (e) {
     var Id = $(this).attr("id")
@@ -365,45 +449,51 @@ $("body").on("keyup", "#breadth_one, #price_one", function () {
   overall_one()
 })
 
-$("body").on("keyup", "#breadth_two, #price_two", function () {
-  var row = $(this).closest("tr")
-  var breadth_two = parseFloat(row.find("#breadth_two").val())
-  var price_two = parseFloat(row.find("#price_two").val())
-  var total_two = parseFloat(breadth_two * price_two)
-  row.find("#total_two").val(total_two.toFixed(2))
-  overall_two()
-})
+// $("body").on("keyup", "#breadth_two, #price_two", function () {
+//   var row = $(this).closest("tr")
+//   var breadth_two = parseFloat(row.find("#breadth_two").val())
+//   var price_two = parseFloat(row.find("#price_two").val())
+//   var total_two = parseFloat(breadth_two * price_two)
+//   row.find("#total_two").val(total_two.toFixed(2))
+//   overall_two()
+// })
 
 $("body").on("keyup", "#discount", function () {
-  var rental = $("#rental").val()
+  var rental = 0
+  $(".ttl_partly").each(function () {
+    rental += +$(this).val()
+  })
   var discount = $(this).val()
-  console.log(rental, discount)
   var rent_value
-  if (discount < 1 || discount == "") {
+  if (discount === 0 || discount === 0.0) {
     rent_value = parseFloat(rental)
   } else {
     rent_value = parseFloat(rental) - parseFloat(rental) * (discount / 100)
   }
-  $("#dummy_discount").html(rent_value.toFixed(2))
+  $("#rental").val(rent_value.toFixed(2))
+  $("#dummy_rental").html(rent_value.toFixed(2))
+  $("#value_corner").html(rent_value.toFixed(2))
   $("#even").val(rent_value.toFixed(2))
 
   generateTax()
 })
 
-// $("body").on("change", "#dummy_corner", function () {
-//   // console.log(this.checked)
-//   var corner
-//   var rental = $("#rental").val()
-//   if (this.checked === true) {
-//     corner = (parseFloat(rental) / 100) * 10 + parseFloat(rental)
-//   } else {
-//     corner = parseFloat(rental)
-//   }
-//   console.log(corner)
-//   $("#value_corner").html(corner.toFixed(2))
-//   $("#even").val(corner.toFixed(2))
-//   generateTax()
-// })
+$("body").on("change", "#dummy_corner", function () {
+  // console.log(this.checked)
+  var corner
+  var rental = $("#rental").val()
+  if (this.checked === true) {
+    corner = (parseFloat(rental) / 100) * 10 + parseFloat(rental)
+    $("#corner").val("true")
+  } else {
+    corner = parseFloat(rental)
+    $("#corner").val("false")
+  }
+  //console.log(corner)
+  $("#value_corner").html(corner.toFixed(2))
+  $("#even").val(corner.toFixed(2))
+  generateTax()
+})
 
 $("body").on("keyup", "#even", function () {
   generateTax()
@@ -431,40 +521,47 @@ function overall_one() {
   sumOneTwo()
 }
 
-function overall_two() {
-  var overall_two = 0
-  $(".two").each(function () {
-    $(this)
-      .find("tr")
-      .each(function () {
-        $(this)
-          .find("#total_two")
-          .each(function () {
-            var val_two = parseFloat($(this).val())
-            if (!isNaN(val_two)) overall_two += val_two
-          })
-      })
-  })
-  $("#overall_two").val(overall_two.toFixed(2))
-  sumOneTwo()
-}
+// function overall_two() {
+//   var overall_two = 0
+//   $(".two").each(function () {
+//     $(this)
+//       .find("tr")
+//       .each(function () {
+//         $(this)
+//           .find("#total_two")
+//           .each(function () {
+//             var val_two = parseFloat($(this).val())
+//             if (!isNaN(val_two)) overall_two += val_two
+//           })
+//       })
+//   })
+//   $("#overall_two").val(overall_two.toFixed(2))
+//   sumOneTwo()
+// }
 
 function sumOneTwo() {
+  // var rental_value = $("#overall_one").val()
   var rental_value = 0
   $(".ttl_partly").each(function () {
-    rental_value += +$(this).val()
+    rental_value = +$(this).val()
+    // console.log(rental_value)
   })
-  $("#rental").val(rental_value.toFixed(2))
-  $("#dummy_rental").html(rental_value.toFixed(2))
-  $("#dummy_discount").html(rental_value.toFixed(2))
-  $("#even").val(rental_value.toFixed(2))
+  $("#rental").val(rental_value)
+  $("#dummy_rental").html(rental_value)
+  $("#value_corner").html(rental_value)
+  $("#even").val(rental_value)
   generateTax()
 }
 
 function generateTax() {
   var year_value
+  var corner = $("#value_corner").html()
   var even = $("#even").val()
-  year_value = parseFloat(even) * 12
+  if (even === parseFloat(corner)) {
+    year_value = parseFloat(corner) * 12
+  } else {
+    year_value = parseFloat(even) * 12
+  }
 
   var rate = $("#rate").val()
   var tax = (parseFloat(rate) / 100) * year_value

@@ -42,7 +42,7 @@
 <script src="<?= PUBLIC_ROOT ?>js/setting.js" type="text/javascript"></script>
 <!-- Other plugins ( load only nessesary plugins for every page) -->
 <script src="<?= PUBLIC_ROOT ?>js/pages/wizard/wizard-vendor-editbuilding.js" type="text/javascript"></script>
-<script src="<?= PUBLIC_ROOT ?>js/pages/calc/calc-building.js" type="text/javascript"></script>
+<script src="<?= PUBLIC_ROOT ?>js/pages/calc/calc-editbuilding.js" type="text/javascript"></script>
 
 <?php Config::setJsConfig("csrfToken", Session::generateCsrfToken()); ?>
 <!-- Assign all configration variables -->

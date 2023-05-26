@@ -6,7 +6,7 @@
       <?php $kws = $this->controller->elements->area(); ?>
       <div class="row">
         <div class="col-lg-12 col-sm-12 col-md-12">
-          <div class="panel panel-default">
+          <div class="panel panel-primary">
             <div class="panel-heading">
               <div class="row align-items-center">
                 <div class="col">
@@ -15,7 +15,7 @@
               </div>
             </div>
             <div class="panel-body">
-              <div class="row">
+              <div class="row mb10">
                 <div class="col-lg-6 col-sm-6 col-md-6">
                 </div>
                 <div class="col-lg-6 col-sm-6 col-md-6 tar pr15">
@@ -24,7 +24,7 @@
                       <select class="form-control input-sm" name="area" id="area">
                         <option selected value="">Sila Pilih Kawasan</option>
                         <?php foreach ($kws as $row) { ?>
-                        <option value="<?= $row["kws_kwkod"] ?>"><?= $row["kws_knama"] ?></option>
+                          <option value="<?= $row["kws_kwkod"] ?>"><?= $row["kws_knama"] ?></option>
                         <?php } ?>
                       </select>
                     </div>
@@ -39,8 +39,7 @@
                 </div>
               </div>
               <div class="table-responsive">
-                <table id="sitereview" class="table table-bordered"
-                  style="border-collapse: collapse; border-spacing: 0;">
+                <table id="sitereview" class="display">
                   <thead>
                     <tr>
                       <th></th>
@@ -48,18 +47,20 @@
                         No. Akaun <br />
                         No. Lot
                       </th>
-                      <th>Nama Jalan</th>
-                      <th>Jenis Hartanah</th>
                       <th>
-                        Luas Bangunan(mp) <br />
-                        Luas Tanah(mp) <br />
-                        Luas Ansolari(mp)
+                        Nama Jalan<br />
+                        Jenis Hartanah
                       </th>
                       <th>
-                        Luas Bgn Tamb.(mp) <br />
-                        Luas Ans Tamb.(mp)
+                        Luas Bangunan <br />
+                        Luas Tanah<br />
+                        Luas Ansolari
                       </th>
                       <th>
+                        Luas Bgn Tamb. <br />
+                        Luas Ans Tamb.
+                      </th>
+                      <th width="10%">
                         Catatan Hadapan <br />
                         Catatan Belakang
                       </th>

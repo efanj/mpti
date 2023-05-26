@@ -1,19 +1,12 @@
 <?php
 
-/**
- * This file contains configuration for the application.
- * It will be used by app/core/Config.php
- *
- * @license    http://opensource.org/licenses/MIT The MIT License (MIT)
- * @author     Omar El Gabry <omar.elgabry.93@gmail.com>
- */
-
 return array(
 
 
   "WEBSITE_NAME" => "Taksiran",
-  "COPYRIGHT" => "Hakcipta Terpelihara Majlis Perbandaran Teluk Intan &copy; ",
-  "GOOGLE_KEY" => "AIzaSyDBC4nzQVa8LQ46cV5eAkvEd-pOHQMDYT8",
+  "PBT_NAME" => "Majlis Daerah Tapah",
+  "COPYRIGHT" => "Hakcipta Terpelihara Majlis Daerah Tapah &copy; ",
+  "GOOGLE_KEY" => "AIzaSyDpsnz9ba2HKFHBDbyHyfyxKSMVZqs2Il8",
 
   /**
    * Configuration for: Database Connection
@@ -25,31 +18,30 @@ return array(
    *
    */
   "DB_HOST" => "localhost",
-  "DB_NAME" => "taksiran_mpti",
+  "DB_NAME" => "taksiran_mdt",
   "DB_USER" => "postgres",
   "DB_PASS" => "@ug141973",
   "DB_PORT" => "5432",
   'DB_CHARSET' => 'utf8',
 
   // "DB_HOST" => "127.0.0.1",
-  // "DB_NAME" => "penilaian",
-  // "DB_USER" => "mptigis",
-  // "DB_PASS" => "%Me4x67n",
+  // "DB_NAME" => "taksiran",
+  // "DB_USER" => "mdtgis",
+  // "DB_PASS" => "$3rBiv30",
   // "DB_PORT" => "5432",
   // 'DB_CHARSET' => 'utf8',
-
 
   "ORACLE_DB_USER" => "SPMC",
   "ORACLE_DB_PASS" => "SPMC",
   "ORACLE_TNS" => "(DESCRIPTION =
     (ADDRESS_LIST =
-      (ADDRESS = (PROTOCOL = TCP)(HOST = 175.140.138.170)(PORT = 9990))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = 60.51.100.65)(PORT = 8213))
     )
     (CONNECT_DATA =
-      (SID = mpti)
+      (SID = mdt)
     )
   )",
-  "ORACLE_DB" => "oci:dbname=175.140.138.170:9990/mpti",
+  "ORACLE_DB" => "oci:dbname=60.51.100.65:8213/mdt",
 
 
 

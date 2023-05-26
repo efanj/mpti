@@ -8,7 +8,16 @@
         <div class="col-lg-12 col-sm-12 col-md-12">
           <div class="panel panel-primary">
             <div class="panel-heading">
-              <h4>MAKLUMAT SIASATAN TAPAK</h4>
+              <div class="row align-items-center">
+                <div class="col">
+                  <h4 class="ml15">MAKLUMAT SIASATAN TAPAK</h4>
+                </div>
+                <!--end col-->
+                <div class="col-auto">
+                  <button type="button" class="btn btn-default btn-xs mt10 mr10" id="print"><i class="glyphicon glyphicon-print"></i></button>
+                </div>
+                <!--end col-->
+              </div>
             </div>
             <div class="panel-body">
               <div class="row">
@@ -20,7 +29,7 @@
                       <select class="form-control input-sm" name="area" id="area">
                         <option selected value="">Sila Pilih Kawasan</option>
                         <?php foreach ($kws as $row) { ?>
-                        <option value="<?= $row["kws_kwkod"] ?>"><?= $row["kws_knama"] ?></option>
+                          <option value="<?= $row["kws_kwkod"] ?>"><?= $row["kws_knama"] ?></option>
                         <?php } ?>
                       </select>
                     </div>
@@ -39,7 +48,7 @@
               </div>
               <div class="table-responsive">
                 <form role="form" id="form-verifylists">
-                  <table id="sitereviews" class="table table-bordered" style="width:100%;">
+                  <table id="sitereviews" class="display" style="width:100%;">
                     <thead>
                       <tr>
                         <th></th>
@@ -48,16 +57,18 @@
                           No. Akaun <br />
                           No. Lot
                         </th>
-                        <th>Nama Jalan</th>
-                        <th>Jenis Hartanah</th>
                         <th>
-                          Luas Bangunan(mp) <br />
-                          Luas Tanah(mp) <br />
-                          Luas Ansolari(mp)
+                          Nama Jalan<br />
+                          Jenis Hartanah
                         </th>
                         <th>
-                          Luas Bgn Tamb.(mp) <br />
-                          Luas Ans Tamb.(mp)
+                          Luas Bangunan <br />
+                          Luas Tanah <br />
+                          Luas Ansolari
+                        </th>
+                        <th>
+                          Luas Bgn Tamb. <br />
+                          Luas Ans Tamb.
                         </th>
                         <th width="10%">
                           Catatan Hadapan <br />
@@ -153,15 +164,15 @@
               <div class="form-group">
                 <label for="rujukan" class="col-sm-4 control-label">No. Rujukan</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control input-sm" id="rujukan" name="rujukan">
+                  <input type="text" class="form-control input-sm" id="rujukan" name="rujukan" required>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="inputEmail6" class="col-sm-4 control-label">Tarikh</label>
+                <label for="inputEmail6" class="col-sm-4 control-label">Tarikh Serah</label>
                 <div class="col-sm-8">
-                  <input type="text" class="form-control input-sm" id="tarikh" name="tarikh">
+                  <input type="text" class="form-control input-sm" id="tarikh" name="tarikh" required>
                 </div>
               </div>
             </div>

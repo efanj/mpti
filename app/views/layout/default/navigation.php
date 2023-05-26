@@ -1,5 +1,6 @@
 <?php
-$info = $this->controller->user->getProfileInfo(Session::getUserId()); ?>
+$info = $this->controller->user->getProfileInfo(Session::getUserId());
+?>
 <div id="header" class="page-navbar header-fixed">
   <!-- .navbar-brand -->
   <a href="<?= PUBLIC_ROOT ?>User" class="navbar-brand hidden-xs hidden-sm">
@@ -62,7 +63,7 @@ $info = $this->controller->user->getProfileInfo(Session::getUserId()); ?>
         <!-- / .sidebar-panel -->
         <div class="user-info clearfix">
           <img src="<?= $info["image"] ?>" alt="avatar">
-          <span class="name"><?= $info["name"] ?></span>
+          <span class="name"><?= ucwords(strtolower($info["name"])) ?></span>
           <div class="btn-group">
             <button type="button" class="btn btn-default btn-xs"><i class="l-basic-gear"></i>
             </button>
@@ -138,17 +139,20 @@ $info = $this->controller->user->getProfileInfo(Session::getUserId()); ?>
                     </ul>
                   </li>
                   <li>
-                    <a href="#"><span class="txt">Pindaan</span></a>
+                    <a href="#"><span class="txt">Nilaian Semasa</span></a>
                     <ul class="sub">
-                      <li><a href="<?= PUBLIC_ROOT ?>amendment/amendlists"><span class="txt">Nilaian Semasa</span></a>
+                      <li><a href="<?= PUBLIC_ROOT ?>amendment/amendlists"><span class="txt">Senarai</span></a>
                       </li>
-                      <li><a href="<?= PUBLIC_ROOT ?>amendment/reviewlist"><span class="txt">Nilaian Semula</span></a>
+                      <li><a href="<?= PUBLIC_ROOT ?>amendment/verifylists"><span class="txt">Pengesahan</span></a>
                       </li>
-                      <li><a href="<?= PUBLIC_ROOT ?>amendment/verifylists"><span class="txt">Pengesahan N.
-                            Semasa</span></a>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#"><span class="txt">Nilaian Semula</span></a>
+                    <ul class="sub">
+                      <li><a href="<?= PUBLIC_ROOT ?>amendment/reviewlist"><span class="txt">Senarai</span></a>
                       </li>
-                      <li><a href="<?= PUBLIC_ROOT ?>amendment/verifylists"><span class="txt">Pengesahan N.
-                            Semula</span></a>
+                      <li><a href="<?= PUBLIC_ROOT ?>amendment/verifypslists"><span class="txt">Pengesahan</span></a>
                       </li>
                     </ul>
                   </li>
@@ -161,9 +165,17 @@ $info = $this->controller->user->getProfileInfo(Session::getUserId()); ?>
                 <li><a href="<?= PUBLIC_ROOT ?>filecode/reviewrate"><span class="txt">Kadar Nilaian Semula</span></a>
                 </li>
                 <?php if (Session::getUserRole() != "vendor" && Session::getUserRole() != "jurutera") { ?>
-                  <li><a href="<?= PUBLIC_ROOT ?>vendor/reviewlist"><span class="txt">Senarai Nilaian Semula</span></a>
+                  <li><a href="<?= PUBLIC_ROOT ?>vendor/evaluationlist"><span class="txt">Senarai Nilaian
+                        Semula</span></a>
                   </li>
-                  <li><a href="<?= PUBLIC_ROOT ?>vendor/submitsitereview"><span class="txt">Senarai Serahan</span></a>
+                  <li>
+                    <a href="#"><span class="txt">Maklumat Serahan</span></a>
+                    <ul class="sub">
+                      <li><a href="<?= PUBLIC_ROOT ?>vendor/submitsitereview"><span class="txt">Senarai Serahan</span></a>
+                      </li>
+                      <li><a href="<?= PUBLIC_ROOT ?>vendor/pbtsubmissionlist"><span class="txt">Data Serahan</span></a>
+                      </li>
+                    </ul>
                   </li>
                 <?php } ?>
                 <?php if (Session::getUserRole() == "administrator" || Session::getUserRole() == "vendor") { ?>

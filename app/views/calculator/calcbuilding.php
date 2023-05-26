@@ -28,22 +28,16 @@
               <input type="hidden" id="htkod" value="<?= $htkod; ?>">
               <table class="info" style="width:100%;font-size:13px;">
                 <tr>
-                  <td style="width:15%"><label class="control-label tal">No. Akaun</label></td>
-                  <td style="width:2%">:</td>
-                  <td style="width:15%"><?= $info["no_akaun"] ?></td>
-                  <td><label class="control-label tal">IC Pemilik</label></td>
-                  <td style="width:2%">:</td>
-                  <td><?= $acct["pmk_plgid"] ?></td>
+                  <td style="width:50%;"><label class="control-label tal">No. Akaun : </label> <?= $info["no_akaun"] ?>
+                  </td>
+                  <td><label class="control-label tal">ID Pemilik : </label> <?= $acct["pmk_plgid"] ?></td>
                 </tr>
                 <tr>
-                  <td><label class="control-label tal">Nama Pemilik</label></td>
-                  <td>:</td>
-                  <td colspan="4" style="width:48%"><?= $acct["pmk_nmbil"] ?></td>
+                  <td colspan="2"><label class="control-label tal">Nama Pemilik : </label> <?= $acct["pmk_nmbil"] ?>
+                  </td>
                 </tr>
                 <tr>
-                  <td><label class="control-label tal">Alamat Harta</label></td>
-                  <td>:</td>
-                  <td colspan="4">
+                  <td colspan="2"><label class="control-label tal">Alamat Harta : </label>
                     <?php
                     if ($info["adpg1"] != "") {
                       echo $info["adpg1"] . ", ";
@@ -61,24 +55,20 @@
                   </td>
                 </tr>
                 <tr>
-                  <td><label class="control-label tal">Kegunaan Tanah</label></td>
-                  <td>:</td>
-                  <td colspan="4"><?= $acct["tnh_tnama"] ?></td>
+                  <td colspan="2"><label class="control-label tal">Kegunaan Tanah : </label> <?= $acct["tnh_tnama"] ?>
+                  </td>
                 </tr>
                 <tr>
-                  <td><label class="control-label tal">Kegunaan Hartanah</label></td>
-                  <td>:</td>
-                  <td colspan="4"><?= $acct["hrt_hnama"] ?></td>
+                  <td colspan="2"><label class="control-label tal">Kegunaan Hartanah : </label>
+                    <?= $acct["hrt_hnama"] ?></td>
                 </tr>
                 <tr>
-                  <td><label class="control-label tal">Jenis Bangunan</label></td>
-                  <td>:</td>
-                  <td colspan="4"><?= $acct["bgn_bnama"] ?></td>
+                  <td colspan="2"><label class="control-label tal">Jenis Bangunan : </label> <?= $acct["bgn_bnama"] ?>
+                  </td>
                 </tr>
                 <tr>
-                  <td><label class="control-label tal">Struktur Bangunan</label></td>
-                  <td>:</td>
-                  <td colspan="4"><?= $acct["stb_snama"] ?></td>
+                  <td colspan="2"><label class="control-label tal">Struktur Bangunan : </label>
+                    <?= $acct["stb_snama"] ?></td>
                 </tr>
               </table>
             </div>
@@ -108,12 +98,6 @@
                   <li>
                     <a href="#tab3" data-toggle="tab">
                       <span class="step-number">3</span>
-                      <span class="step-text">Bangunan Luar</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#tab4" data-toggle="tab">
-                      <span class="step-number">4</span>
                       <span class="step-text">Pengiraan</span>
                     </a>
                   </li>
@@ -142,8 +126,7 @@
                         </thead>
                         <tbody id="comparison_table">
                           <tr id="0">
-                            <td><button class="btn btn-primary btn-xs" id="add" type="button"><i
-                                  class="fa fa-plus"></i></button></td>
+                            <td><button class="btn btn-primary btn-xs" id="add" type="button"><i class="fa fa-plus"></i></button></td>
                             <td>
                               <input type="hidden" name="comparison[]" id="comparison_0">
                               <div class='control-label tal' id='jlname_0'></div>
@@ -163,8 +146,7 @@
                             <td>
                               <div class='control-label tal' id='afa_0'></div>
                             </td>
-                            <td><button class="btn btn-danger btn-xs" id="delete" type="button"><i
-                                  class="fa fa-trash"></i></button></td>
+                            <td><button class="btn btn-danger btn-xs" id="delete" type="button"><i class="fa fa-trash"></i></button></td>
                           </tr>
                         </tbody>
                       </table>
@@ -186,12 +168,10 @@
                         <tbody>
                           <tr>
                             <td></td>
-                            <td><input type="number" class="form-control input-sm" name="breadth_land" id="breadth_land"
-                                value="<?= $info["lstnh"] ?>"></td>
+                            <td><input type="number" class="form-control input-sm" name="breadth_land" id="breadth_land" value="<?= $info["lstnh"] ?>"></td>
                             <td>mp</td>
                             <td style="text-align:center">X</td>
-                            <td><input type="number" class="form-control input-sm" name="price_land" id="price_land"
-                                value="0"></td>
+                            <td><input type="number" class="form-control input-sm" name="price_land" id="price_land" value="0"></td>
                             <td>smp</td>
                             <td><input type="number" class="form-control input-sm ttl_partly" id="total_land" readonly>
                             </td>
@@ -201,7 +181,7 @@
                     </div>
                     <div class="tab-pane" id="tab2">
                       <div class="page-header">
-                        <h4><strong>BANGUNAN UTAMA</strong></h4>
+                        <h4><strong>BANGUNAN</strong></h4>
                       </div>
                       <button id="add-section-one" class="btn btn-success btn-sm mb5" type="button">Add
                         Section</button>
@@ -230,11 +210,8 @@
                             </thead>
                             <tbody id="zero">
                               <tr id="0">
-                                <td><input type="text" class="form-control input-sm"
-                                    name="section_one[0][item][0][title_one]"></td>
-                                <td><input type="number" class="form-control input-sm"
-                                    name="section_one[0][item][0][breadth_one]" id="breadth_one"
-                                    value="<?= $info["lsbgn"] ?>"></td>
+                                <td><input type="text" class="form-control input-sm" name="section_one[0][item][0][title_one]"></td>
+                                <td><input type="number" class="form-control input-sm" name="section_one[0][item][0][breadth_one]" id="breadth_one" value="<?= $info["lsbgn"] ?>"></td>
                                 <td>
                                   <select class="form-control input-sm" name="section_one[0][item][0][breadthtype_one]">
                                     <option value="">Sila Pilih</option>
@@ -245,8 +222,7 @@
                                   </select>
                                 </td>
                                 <td style="text-align:center">X</td>
-                                <td><input type="number" class="form-control input-sm"
-                                    name="section_one[0][item][0][price_one]" id="price_one" value="0"></td>
+                                <td><input type="number" class="form-control input-sm" name="section_one[0][item][0][price_one]" id="price_one" value="0"></td>
                                 <td>
                                   <select class="form-control input-sm" name="section_one[0][item][0][pricetype_one]">
                                     <option value="">Sila Pilih</option>
@@ -256,8 +232,7 @@
                                     <option value="sepetak">Sepetak</option>
                                   </select>
                                 </td>
-                                <td><input type="number" class="form-control input-sm"
-                                    name="section_one[0][item][0][total_one]" id="total_one" readonly></td>
+                                <td><input type="number" class="form-control input-sm" name="section_one[0][item][0][total_one]" id="total_one" readonly></td>
                                 <td></td>
                               </tr>
                             </tbody>
@@ -285,7 +260,7 @@
                         </tbody>
                       </table>
                     </div>
-                    <div class="tab-pane" id="tab3">
+                    <!-- <div class="tab-pane" id="tab3">
                       <div class="page-header">
                         <h4><strong>BANGUNAN LUAR</strong></h4>
                       </div>
@@ -369,8 +344,8 @@
                           </tr>
                         </tbody>
                       </table>
-                    </div>
-                    <div class="tab-pane" id="tab4">
+                    </div> -->
+                    <div class="tab-pane" id="tab3">
                       <div class="page-header">
                         <h4><strong>PENGIRAAN</strong></h4>
                       </div>
@@ -418,12 +393,11 @@
                         <tr>
                           <td><strong>KADAR</strong></td>
                           <td>
-                            <button type="button" class="btn btn-default btn-sm" id="update_rate">Kemaskini</button>
+                            <button type="button" class="btn btn-info btn-sm" id="update_rate">Kemaskini</button>
                           </td>
                           <td>
                             <div class="input-group input-group-sm">
-                              <input type="number" class="form-control input-sm" name="rate" id="rate"
-                                value="<?= $acct["kaw_kadar"] ?>">
+                              <input type="number" class="form-control input-sm" name="rate" id="rate" value="<?= $acct["kaw_kadar"] ?>">
                               <span class=" input-group-addon">%</span>
                             </div>
                           </td>

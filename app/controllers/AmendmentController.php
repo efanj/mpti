@@ -20,6 +20,9 @@ class AmendmentController extends Controller
       case "getVerifyTable":
         $this->Security->config("validateForm", false);
         break;
+      case "getVerifyPsTable":
+        $this->Security->config("validateForm", false);
+        break;
       case "getReviewTable":
         $this->Security->config("validateForm", false);
         break;
@@ -66,6 +69,11 @@ class AmendmentController extends Controller
     $this->view->renderWithLayouts(Config::get("VIEWS_PATH") . "layout/amendment/verifytable/", Config::get("VIEWS_PATH") . "amendment/verify_lists.php");
   }
 
+  public function verifypslists()
+  {
+    $this->view->renderWithLayouts(Config::get("VIEWS_PATH") . "layout/amendment/verifypstable/", Config::get("VIEWS_PATH") . "amendment/verifyps_lists.php");
+  }
+
   public function macthaccount($fileId)
   {
     $this->view->renderWithLayouts(Config::get("VIEWS_PATH") . "layout/amendment/macthaccount/", Config::get("VIEWS_PATH") . "amendment/macth_account.php", ["fileId" => $fileId]);
@@ -93,6 +101,12 @@ class AmendmentController extends Controller
     $this->view->renderWithLayouts(Config::get("VIEWS_PATH") . "layout/amendment/viewdocuments/", Config::get("VIEWS_PATH") . "amendment/viewdocuments.php", ["fileId" => $fileId]);
   }
 
+  public function viewpsdetails($fileId)
+  {
+    Config::setJsConfig("curPage", "account");
+    $this->view->renderWithLayouts(Config::get("VIEWS_PATH") . "layout/amendment/viewpsdetails/", Config::get("VIEWS_PATH") . "amendment/viewpsdetails.php", ["fileId" => $fileId]);
+  }
+
   public function getAmendTable()
   {
     $draw = $this->request->data("draw");
@@ -103,9 +117,9 @@ class AmendmentController extends Controller
     $columns = $this->request->data("columns");
     $columnName = $columns[$columnIndex]["data"];
     $columnSortOrder = $column[0]["dir"];
-    $area = $this->request->data("area");
-    $street = $this->request->data("street");
-    $result = $this->amendment->getAmendTable($draw, $row, $rowperpage, $columnIndex, $columnName, $columnSortOrder, $area, $street);
+    $search = $this->request->data("search");
+    $searchValue = strtoupper($search["value"]);
+    $result = $this->amendment->getAmendTable($draw, $row, $rowperpage, $columnIndex, $columnName, $columnSortOrder, $searchValue);
 
     if (!$result) {
       $this->view->renderErrors($this->amendment->errors());
@@ -124,9 +138,30 @@ class AmendmentController extends Controller
     $columns = $this->request->data("columns");
     $columnName = $columns[$columnIndex]["data"];
     $columnSortOrder = $column[0]["dir"];
-    $area = $this->request->data("area");
-    $street = $this->request->data("street");
-    $result = $this->amendment->getVerifyTable($draw, $row, $rowperpage, $columnIndex, $columnName, $columnSortOrder, $area, $street);
+    $search = $this->request->data("search");
+    $searchValue = strtoupper($search["value"]);
+    $result = $this->amendment->getVerifyTable($draw, $row, $rowperpage, $columnIndex, $columnName, $columnSortOrder, $searchValue);
+
+    if (!$result) {
+      $this->view->renderErrors($this->amendment->errors());
+    } else {
+      $this->view->renderJson($result);
+    }
+  }
+
+  public function getVerifyPsTable()
+  {
+    $draw = $this->request->data("draw");
+    $row = $this->request->data("start");
+    $rowperpage = $this->request->data("length");
+    $column = $this->request->data("order");
+    $columnIndex = $column[0]["column"];
+    $columns = $this->request->data("columns");
+    $columnName = $columns[$columnIndex]["data"];
+    $columnSortOrder = $column[0]["dir"];
+    $search = $this->request->data("search");
+    $searchValue = strtoupper($search["value"]);
+    $result = $this->amendment->getVerifyPsTable($draw, $row, $rowperpage, $columnIndex, $columnName, $columnSortOrder, $searchValue);
 
     if (!$result) {
       $this->view->renderErrors($this->amendment->errors());
@@ -147,9 +182,7 @@ class AmendmentController extends Controller
     $columnSortOrder = $column[0]["dir"];
     $search = $this->request->data("search");
     $searchValue = strtoupper($search["value"]);
-    $area = $this->request->data("area");
-    $street = $this->request->data("street");
-    $result = $this->amendment->getReviewTable($draw, $row, $rowperpage, $columnIndex, $columnName, $columnSortOrder, $searchValue, $area, $street);
+    $result = $this->amendment->getReviewTable($draw, $row, $rowperpage, $columnIndex, $columnName, $columnSortOrder, $searchValue);
 
     if (!$result) {
       $this->view->renderErrors($this->amendment->errors());
@@ -167,11 +200,11 @@ class AmendmentController extends Controller
     //only for admin
     Permission::allow("administrator", $resource, "*");
 
-    //only for user
-    Permission::allow("user", $resource, "*");
+    //only for penilaian
+    Permission::allow("penilaian", $resource, "*");
 
     //only for vendor
-    Permission::allow("user", $resource, ["getReviewTable"]);
+    Permission::allow("vendor", $resource, ["getReviewTable"]);
 
     return Permission::check($role, $resource, $action);
   }

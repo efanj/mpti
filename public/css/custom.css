@@ -85,6 +85,24 @@ img.logolg {
   margin-bottom: 5px;
 }
 
+.print-table table {
+  font-family: Tahoma, Arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 10px;
+}
+
+.print-table tbody td,
+.print-table thead th {
+  border-color: #ddd;
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+.print-table thead {
+  background-color: #e8e8e8;
+}
+
 .dataTables_wrapper table.dataTable tbody td,
 .dataTables_wrapper table.dataTable tbody th {
   background-color: #fff;
@@ -126,15 +144,17 @@ table.calculator .input-sm {
 }
 
 table.dataTable th {
-  font-size: 13px;
+  font-size: 12px;
 }
 
 table.dataTable td {
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 table.dataTable tr.dtrg-level-0 td {
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 table.dataTable.dt-checkboxes-select tbody tr,
@@ -148,9 +168,40 @@ table.dataTable tbody td.dt-checkboxes-cell {
   text-align: center;
 }
 
+/* table.dataTable thead th {
+  background-color: #ddd;
+} */
+
 div.dataTables_wrapper span.select-info,
 div.dataTables_wrapper span.select-item {
   margin-left: 0.5em;
+}
+
+.pager .finish>a.submit {
+  background-color: #054f90;
+  color: #ffffff;
+}
+
+.pager .finish>a.pending {
+  background-color: #f50303;
+  color: #ffffff;
+}
+
+.iframe-container {
+  padding-bottom: 60%;
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}
+
+.iframe-container iframe,
+.iframe-container object,
+.iframe-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 @media screen and (max-width: 640px) {
@@ -249,6 +300,12 @@ tr.shown td.details-control {
   background: url("../img/details_close.png") no-repeat center center;
 }
 
+table.dataTable tbody tr.selected>* {
+  box-shadow: inset 0 0 0 9999px rgba(13, 110, 253, 0.9);
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+}
+
 .help-block {
   color: #ff0000;
 }
@@ -257,10 +314,20 @@ div.checkbox-custom.checkbox-inline {
   margin-top: 2px;
 }
 
-.google {
+/* .google {
   z-index: 1000;
   position: absolute;
   top: 10px;
   left: 10px;
   width: 70%;
+} */
+
+.google {
+  z-index: 100;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  width: 70%;
+  max-width: 90%;
+  min-width: 50%;
 }

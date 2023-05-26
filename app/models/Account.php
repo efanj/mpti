@@ -544,9 +544,7 @@ class Account extends Model
     $database = Database::openConnection();
     $dbOracle = new Oracle();
 
-    $query = "SELECT b.*, jp.jpk_jnama, sb.acm_sbktr, u.name FROM data.t_hacmjb b ";
-    $query .= "LEFT JOIN data.hmjacm sb ON b.mjb_sbkod = sb.acm_sbkod ";
-    $query .= "LEFT JOIN data.hjenpk jp ON b.mjb_jpkod = jp.jpk_jpkod ";
+    $query = "SELECT b.*, u.name FROM data.t_hacmjb b ";
     $query .= "LEFT JOIN public.users u ON b.mjb_onama = u.workerid ";
     $query .= "WHERE b.mjb_nsiri = :nsiri ";
     $database->prepare($query);
@@ -580,8 +578,8 @@ class Account extends Model
     $rowOutput["mjb_tkpos"] = $info["mjb_tkpos"];
     $rowOutput["mjb_onama"] = $info["mjb_onama"];
     $rowOutput["name"] = $info["name"];
-    $rowOutput["acm_sbktr"] = $info["acm_sbktr"];
-    $rowOutput["jpk_jnama"] = $info["jpk_jnama"];
+    $rowOutput["acm_sbktr"] = $dbOracle->getElementById("SPMC.V_ACMRSN", "acm_sbktr", "acm_sbkod", $info["mjb_sbkod"]);
+    $rowOutput["jpk_jnama"] = $dbOracle->getElementById("SPMC.V_HJENPK", "jpk_jnama", "jpk_jpkod", $info["mjb_jpkod"]);
     $rowOutput["peg_oldac"] = $val["peg_oldac"];
     $rowOutput["pmk_nmbil"] = $val["pmk_nmbil"];
     $rowOutput["peg_nolot"] = $val["peg_nolot"];
@@ -626,7 +624,7 @@ class Account extends Model
   public function viewamendPSdetail($siriNo)
   {
     $database = Database::openConnection();
-    $query = "SELECT ps.*, s.*, v.smk_lsbgn_tmbh, v.smk_lsans_tmbh, h.tnh_tnama, b.bgn_bnama, st.stb_snama FROM data.ps_hacmjb ps ";
+    $query = "SELECT ps.*, s.*, v.smk_lsbgn_tmbh, v.smk_lsans_tmbh, h.tnh_tnama, b.bgn_bnama, st.stb_snama FROM data.v_hacmjb ps ";
     $query .= "LEFT JOIN data.v_semak v ON ps.mjb_akaun = v.smk_akaun ";
     $query .= "LEFT JOIN data.hvnduk s ON ps.mjb_akaun = s.peg_akaun ";
     $query .= "LEFT JOIN data.htanah h ON s.peg_thkod = h.tnh_thkod ";
@@ -643,17 +641,15 @@ class Account extends Model
 
   public function getSumbangan($jpkod)
   {
-    $database = Database::openConnection();
 
-    $query = "SELECT jpk_stcbk ";
-    $query .= "FROM data.hjenpk ";
-    $query .= "WHERE jpk_jpkod = :jpk_jpkod LIMIT 1";
+    $dbOracle = new Oracle();
+    $query = "SELECT * FROM V_HJENPK ";
+    $query .= "WHERE jpk_jpkod = :jpk_jpkod";
+    $dbOracle->prepare($query);
+    $dbOracle->bindValue(":jpk_jpkod", $jpkod);
+    $dbOracle->execute();
+    $info = $dbOracle->fetchAllAssociative();
 
-    $database->prepare($query);
-    $database->bindValue(":jpk_jpkod", $jpkod);
-    $database->execute();
-
-    $info = $database->fetchAssociative();
     return $info;
   }
 

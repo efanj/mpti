@@ -49,7 +49,7 @@ $(document).ready(function () {
         data: "afa"
       }
     ],
-    order: [[1, "asc"]],
+    order: [[0, "asc"]],
     language: {
       search: "Saring : ",
       lengthMenu: "Paparkan _MENU_ rekod",
